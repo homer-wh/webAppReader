@@ -69,6 +69,8 @@ exports.get_search_data = function(start, end, keyword) {
 		var http_request = {
 			hostname: 'dushu.xiaomi.com',
 			port: 80,
+			// path: '/#page=search&_t=&&from=main' + content
+
 			path: '/store/v0/lib/query/onebox?' + content
 		}
 		req_obj = http.request(http_request, function(_res) {

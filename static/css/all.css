@@ -36,6 +36,7 @@
 	background: #777;
 }
 .header-tab a:before {
+	/* unicode */
 	content: '\4e66\67b6';
 	display: block;
 	margin: 0 auto;

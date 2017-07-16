@@ -282,7 +282,7 @@
 
 			<!-- 顶部导航 -->
 			<div id="top_nav" class="top-nav" style="display: none;">
-				<div class="icon-back"></div>
+				<a href="/book?id=18218"><div class="icon-back"></div></a>
 				<div class="nav-title">返回书架</div>
 			</div>
 			<!-- 顶部导航结束 -->
@@ -392,15 +392,20 @@
 
 		<script>
 			(function() {
+				/* 后边有用ES6语法 */
 				'use strict';
 				var Util = (function() {
+					// 避免缓存 key 冲突
 					var prefix = 'html5_reader_';
+					// 读取缓存数据
 					var StorageGetter = function(key) {
 						return localStorage.getItem(prefix + key);
 					}
+					// 写入缓存数据
 					var StorageSetter = function(key, val) {
 						return localStorage.setItem(prefix + key, val);
 					}
+					// 获取章节信息要用到的方法
 					var getJSONP = function(url, callback) {
 						return $.jsonp({
 							url: url,
@@ -420,7 +425,7 @@
 						getJSONP: getJSONP
 					}
 				})();
-
+				// 操作面板元素
 				var Dom = {
 					top_nav: $('#top_nav'),
 					bottom_nav: $('.bottom_nav'),
@@ -449,7 +454,7 @@
 				Body.css('background-color', cache_bk_color);
 
 				function main() {
-					//todo 整个项目的入口函数
+					// 整个项目的入口函数
 					readerModel = ReaderModel();
 					readerUI = ReaderBaseFrame(RootContainer);
 
@@ -461,7 +466,7 @@
 					matchBkColor(cache_bk_color);
 
 				}
-
+				// 同步背景和控制按钮标示
 				function matchBkColor(str) {
 					var arrRGB = ['rgb(233, 223, 199)', 'rgb(245, 244, 242)', 'rgb(177, 175, 176)', 'rgb(223, 246, 214)', 'rgb(50, 58, 77)'];
 					var index = 0;
@@ -475,7 +480,7 @@
 				}
 
 				function ReaderModel() {
-					//todo 实现和阅读器相关的数据交互的方法
+					// 实现和阅读器相关的数据交互的方法
 					var Chapter_id = cache_Chapter_id;
 					var ChapterTotal;
 					// var Chapter_id = 1;
@@ -603,9 +608,7 @@
 					}
 					return function(data) {
 						container.html(parseChapterData(data));
-					}
-					
-					
+					}	
 				}
 
 				function EventHandler() {
@@ -632,10 +635,6 @@
 							Dom.font_button.find('.icon-font').removeClass('icon-font-on');
 						}
 						return false;
-					});
-
-					Dom.light_button.click(function() {
-						//todo 触发背景切换事件
 					});
 
 					$('#large-font').click(function() {
@@ -673,6 +672,7 @@
 					});
 
 					Dom.light_button.click(function() {
+						//todo 触发背景切换事件
 						$(this).find('#day-button').toggle();
 						$(this).find('#night-button').toggle();
 						if($(this).find('#day-button').css('display') === 'none') {
@@ -696,16 +696,14 @@
 						//todo 新获得章节数据 -> 渲染页面
 						document.documentElement.scrollTop = 0;
 						document.body.scrollTop = 0;
-						// scroll(0, 0);
 						readerModel.prevChapter(function(data) {
 							readerUI(data);
 						});
 					});
 					$('#next_button').click(function() {
-						//todo
+						//todo 新获得章节数据 -> 渲染页面
 						document.documentElement.scrollTop = 0;
 						document.body.scrollTop = 0;
-						// scroll(0, 0);
 						readerModel.nextChapter(function(data) {
 							readerUI(data);
 						});
